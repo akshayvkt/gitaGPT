@@ -30,6 +30,7 @@ st.write("""
 # GitaGPT
 """)
 
+st.write('''If you could ask Krishna a question, what would it be?''')
 def get_embedding(text, model="text-embedding-ada-002"):
    text = text.replace("\n", " ")
    return openai.Embedding.create(input = [text], model=model)['data'][0]['embedding']
@@ -108,3 +109,5 @@ if question!='':
     st.markdown('\n\n')
     st.markdown("Relevant verses:")
     st.markdown(verse_strings.replace('\n','\n\n'))
+
+st.write('''Note: This is an AI model trained on Bhagvad Gita and it generates responses from that perspective''')
