@@ -26,6 +26,10 @@ openai.api_key=st.secrets['openai_api_key']
 
 df_index=pd.read_csv('only_verses.csv')
 
+st.write("""
+# GitaGPT
+""")
+
 def get_embedding(text, model="text-embedding-ada-002"):
    text = text.replace("\n", " ")
    return openai.Embedding.create(input = [text], model=model)['data'][0]['embedding']
