@@ -84,13 +84,6 @@ def return_all_verses(x):
         versee.append(f"{df_index['index'][i]} \n")
     return versee
         
-st.write('''Some examples:
-1. I've worked very hard but I'm still not able to achieve the success I hoped to, what do I do?
-2. I made a million dollars manipulating the stock market and I'm feeling great.
-3. How can I attain a peace of mind?
-''')
-
-
 
 question=st.text_input('How are you feeling?','')
 if question!='':
@@ -109,5 +102,14 @@ if question!='':
     st.markdown('\n\n')
     st.markdown("Relevant verses:")
     st.markdown(verse_strings.replace('\n','\n\n'))
+
+
+st.write('''Some examples:
+1. I've worked very hard but I'm still not able to achieve the success I hoped to, what do I do?
+2. I made a million dollars manipulating the stock market and I'm feeling great.
+3. How can I attain a peace of mind?
+''')
+
+st.write('\n\n\n\n\n\n\n')
 
 st.write('''Note: This is an AI model trained on Bhagvad Gita and it generates responses from that perspective.''')
