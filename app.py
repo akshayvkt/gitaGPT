@@ -83,6 +83,14 @@ def return_all_verses(x):
         versee.append(f"{df_index['index'][i]} \n")
     return versee
         
+st.write('''Some examples:
+1. I've worked very hard but I'm still not able to achieve the success I hoped to, what do I do?
+2. I made a million dollars manipulating the stock market and I'm feeling great.
+3. How can I attain a peace of mind?
+''')
+
+
+
 question=st.text_input('How are you feeling?','')
 if question!='':
     st.write('Bhagvad Gita says: ') 
