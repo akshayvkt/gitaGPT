@@ -84,7 +84,7 @@ def return_all_verses():
     return versee
         
 
-question=st.text_input('**How are you feeling? Ask a question r describe your situation below**','')
+question=st.text_input('**How are you feeling? Ask a question or describe your situation here ⬇️**','',width=100)
 if question!='':
     st.write('Bhagvad Gita says: ') 
     verse_numbers = print_verse(question)
@@ -104,7 +104,7 @@ if question!='':
 
 
 st.write('''Here's some examples of what you can ask:
-1. I've worked very hard but I'm still not able to achieve the success I hoped to, what do I do?
+1. I've worked very hard but I'm still not able to achieve the results I hoped for, what do I do?
 2. I made a million dollars manipulating the stock market and I'm feeling great.
 3. How can I attain a peace of mind?
 ''')
