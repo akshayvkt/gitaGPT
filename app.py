@@ -84,12 +84,12 @@ def return_all_verses():
     return versee
         
 
-question=st.text_input('**How are you feeling? Ask a question or describe your situation below**','')
+question=st.text_input('**How are you feeling? Ask a question r describe your situation below**','')
 if question!='':
     st.write('Bhagvad Gita says: ') 
     verse_numbers = print_verse(question)
     verses = return_all_verses()
-    verse_strings = "".join(return_all_verses(question))
+    verse_strings = "".join(return_all_verses())
     prompt = f'''{header}Question:{question}\nVerses:\n{verse_strings}'''
 
     response = openai.Completion.create(
