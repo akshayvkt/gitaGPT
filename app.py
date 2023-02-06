@@ -84,7 +84,7 @@ def return_all_verses():
     return versee
         
 
-question=st.text_area('**How are you feeling? Ask a question or describe your situation here :arrow_down:**','',height = 20)
+question=st.text_area('**How are you feeling? Ask a question or describe your situation here :arrow_down: and press Enter**','',height = 20)
 if st.button('Enter'):
     st.write('Bhagvad Gita says: ') 
     verse_numbers = print_verse(question)
