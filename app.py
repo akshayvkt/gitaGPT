@@ -90,7 +90,7 @@ if question!='':
     verse_numbers = print_verse(question)
     verses = return_all_verses()
     verse_strings = "".join(return_all_verses())
-    prompt = f'''{header}Question:{question}\nVerses:\n{verse_strings}'''
+    prompt = f'''{header}\nQuestion:{question}\nVerses:\n{verse_strings}\nAnswer:\n'''
 
     response = openai.Completion.create(
         prompt = prompt,
