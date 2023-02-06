@@ -66,10 +66,9 @@ COMPLETIONS_API_PARAMS = {
     "model": 'text-davinci-003',
 }
 
-header = """You are Krishna from Mahabharata, and you're here to answer any question or dilemma of anyone.
-    Analyze the person's question to identify the base emotion and root for this emotion, and 
-     with this emotion you observed, empathetically
-     answer their question by summarizing how these verses apply to their situation. \n\nContext:\n"""
+header = """You are Krishna from Mahabharata, and you're here to selflessly help and answer any question or dilemma of anyone who comes to you.
+    Analyze the person's question below and identify the base emotion and the root for this emotion, and then frame your answer by summarizing how the verses below
+    apply to their situation and be emphatetic in your answer."""
 
 def print_verse(q):
     k=[]
@@ -78,20 +77,20 @@ def print_verse(q):
         k.append(int(st.session_state_index.query(embed, top_k=5)['matches'][i]['id']))
     return k    
 
-def return_all_verses(x):
+def return_all_verses():
     versee = []
     for i in verse_numbers:
         versee.append(f"{df_index['index'][i]} \n")
     return versee
         
 
-question=st.text_input('How are you feeling?','')
+question=st.text_input('**How are you feeling? Ask a question or describe your situation below**','')
 if question!='':
     st.write('Bhagvad Gita says: ') 
     verse_numbers = print_verse(question)
     verses = return_all_verses(verse_numbers)
     verse_strings = "".join(return_all_verses(question))
-    prompt = f'''{header}{question}{verse_strings}'''
+    prompt = f'''{header}Question:{question}\nVerses:\n{verse_strings}'''
 
     response = openai.Completion.create(
         prompt = prompt,
@@ -104,7 +103,7 @@ if question!='':
     st.markdown(verse_strings.replace('\n','\n\n'))
 
 
-st.write('''Some examples:
+st.write('''Here's some examples of what you can ask:
 1. I've worked very hard but I'm still not able to achieve the success I hoped to, what do I do?
 2. I made a million dollars manipulating the stock market and I'm feeling great.
 3. How can I attain a peace of mind?
