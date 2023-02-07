@@ -73,10 +73,10 @@ header = """You are Krishna from Mahabharata, and you're here to selflessly help
 def print_verse(q,retries=6):
     k=[]
     embed = get_embedding(q)
-    for i in range(5):
-         for i in range(retries):
+    for i in range(retries):
             try:
-                k.append(int(st.session_state_index.query(embed, top_k=5)['matches'][i]['id']))
+                for i in range(5):
+                    k.append(int(st.session_state_index.query(embed, top_k=5)['matches'][i]['id']))
                 return k    
             except Exception as e:
                 if i == retries - 1:
