@@ -80,16 +80,28 @@ def print_verse(q,retries=6):
                 return k    
             except Exception as e:
                 if i == retries - 1:
+                    print("Failed to generate, trying again.")
                     raise e
                 else:
                     time.sleep(2 ** i)
                     continue
 
-def return_all_verses():
+def return_all_verses(retries=6):
     versee = []
-    for i in verse_numbers:
-        versee.append(f"{df_index['index'][i]} \n")
-    return versee
+    for i in range(retries):
+        try:
+            for i in verse_numbers:
+                versee.append(f"{df_index['index'][i]} \n")
+            return versee
+        except Exception as e:
+            if i == retries - 1:
+                print("Failed to generate, trying again.")
+                raise e
+            else:
+                time.sleep(2 ** i)
+                continue
+        
+
         
 
 question=st.text_input("**How are you feeling? Ask a question or describe your situation below, and then press Enter.**",'',placeholder='Type your question here')
