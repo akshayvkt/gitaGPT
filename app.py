@@ -94,8 +94,8 @@ def return_all_verses(retries=6):
                 versee.append(f"{df_index['index'][i]} \n")
             return versee
         except Exception as e:
+            print("Failed to generate, trying again.")
             if i == retries - 1:
-                print("Failed to generate, trying again.")
                 raise e
             else:
                 time.sleep(2 ** i)
