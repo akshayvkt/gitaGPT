@@ -100,7 +100,7 @@ def retry(prompt, COMPLETIONS_API_PARAMS, retries=6):
                 time.sleep(2 ** i)
                 continue
 
-question=st.text_area("**How are you feeling? Ask a question or describe your situation below, and then press Enter.**",'',placeholder='Type your question here')
+question=st.text_input("**How are you feeling? Ask a question or describe your situation below, and then press Enter.**",'',placeholder='Type your question here')
 if st.button('Enter'):
     st.write('Bhagvad Gita says: ') 
     verse_numbers = print_verse(question)
