@@ -30,7 +30,7 @@ st.write("""
 # GitaGPT
 """)
 
-st.write('''If you could ask Krishna or Arjuna a question, what would it be?''')
+st.write('''If you could ask Bhagavad Gita a question, what would it be?''')
 def get_embedding(text, model="text-embedding-ada-002"):
    text = text.replace("\n", " ")
    return openai.Embedding.create(input = [text], model=model)['data'][0]['embedding']
@@ -38,7 +38,6 @@ def get_embedding(text, model="text-embedding-ada-002"):
 def vector_similarity(x, y):
     """
     Returns the similarity between two vectors.
-    
     Because OpenAI Embeddings are normalized to length 1, the cosine similarity is the same as the dot product.
     """
     return np.dot(np.array(x), np.array(y))
