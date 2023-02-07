@@ -4,6 +4,7 @@ import openai
 import pinecone
 import os
 import streamlit as st
+import time
 
 pinecone_api_key = st.secrets["pinecone_api_key"]
 pinecone.init(
@@ -83,6 +84,22 @@ def return_all_verses():
     return versee
         
 
+
+def retry(prompt, COMPLETIONS_API_PARAMS, retries=6):
+    for i in range(retries):
+        try:
+            response = openai.Completion.create(
+                prompt=prompt,
+                **COMPLETIONS_API_PARAMS
+            )
+            return response
+        except Exception as e:
+            if i == retries - 1:
+                raise e
+            else:
+                time.sleep(2 ** i)
+                continue
+
 question=st.text_area("**How are you feeling? Ask a question or describe your situation below, and then press Enter.**",'',placeholder='Type your question here')
 if st.button('Enter'):
     st.write('Bhagvad Gita says: ') 
@@ -91,10 +108,7 @@ if st.button('Enter'):
     verse_strings = "".join(return_all_verses())
     prompt = f'''{header}\nQuestion:{question}\nVerses:\n{verse_strings}\nAnswer:\n'''
 
-    response = openai.Completion.create(
-        prompt = prompt,
-        **COMPLETIONS_API_PARAMS
-    )
+    response = retry(prompt, COMPLETIONS_API_PARAMS)
 
     st.markdown(response["choices"][0]["text"].strip(" \n"))
     st.markdown('\n\n')
