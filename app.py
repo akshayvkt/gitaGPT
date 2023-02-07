@@ -70,12 +70,20 @@ header = """You are Krishna from Mahabharata, and you're here to selflessly help
     Analyze the person's question below and identify the base emotion and the root for this emotion, and then frame your answer by summarizing how the verses below
     apply to their situation and be emphatetic in your answer."""
 
-def print_verse(q):
+def print_verse(q,retries=6):
     k=[]
     embed = get_embedding(q)
     for i in range(5):
-        k.append(int(st.session_state_index.query(embed, top_k=5)['matches'][i]['id']))
-    return k    
+         for i in range(retries):
+            try:
+                k.append(int(st.session_state_index.query(embed, top_k=5)['matches'][i]['id']))
+                return k    
+            except Exception as e:
+                if i == retries - 1:
+                    raise e
+                else:
+                    time.sleep(2 ** i)
+                    continue
 
 def return_all_verses():
     versee = []
@@ -83,22 +91,6 @@ def return_all_verses():
         versee.append(f"{df_index['index'][i]} \n")
     return versee
         
-
-
-def retry(prompt, COMPLETIONS_API_PARAMS, retries=6):
-    for i in range(retries):
-        try:
-            response = openai.Completion.create(
-                prompt=prompt,
-                **COMPLETIONS_API_PARAMS
-            )
-            return response
-        except Exception as e:
-            if i == retries - 1:
-                raise e
-            else:
-                time.sleep(2 ** i)
-                continue
 
 question=st.text_input("**How are you feeling? Ask a question or describe your situation below, and then press Enter.**",'',placeholder='Type your question here')
 if st.button('Enter'):
@@ -108,7 +100,10 @@ if st.button('Enter'):
     verse_strings = "".join(return_all_verses())
     prompt = f'''{header}\nQuestion:{question}\nVerses:\n{verse_strings}\nAnswer:\n'''
 
-    response = retry(prompt, COMPLETIONS_API_PARAMS)
+    response = openai.Completion.create(
+        prompt = prompt,
+        **COMPLETIONS_API_PARAMS
+    )
 
     st.markdown(response["choices"][0]["text"].strip(" \n"))
     st.markdown('\n\n')
