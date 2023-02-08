@@ -5,6 +5,12 @@ import pinecone
 import os
 import streamlit as st
 import time
+from tenacity import (
+    retry,
+    stop_after_attempt,
+    wait_random_exponential,
+)  # for exponential backoff
+
 
 pinecone_api_key = st.secrets["pinecone_api_key"]
 pinecone.init(
@@ -70,6 +76,8 @@ header = """You are Krishna from Mahabharata, and you're here to selflessly help
     Analyze the person's question below and identify the base emotion and the root for this emotion, and then frame your answer by summarizing how the verses below
     apply to their situation and be emphatetic in your answer."""
 
+
+
 def print_verse(q,retries=6):
     k=[]
     embed = get_embedding(q)
@@ -82,7 +90,7 @@ def print_verse(q,retries=6):
                 if j == retries - 1:
                     raise e(f'Maximum number of retries exceeded')
                 else:
-                    print("Failed to generate, trying again.")
+                    st.markdown("Failed to generate, trying again.")
                     time.sleep(2 ** j)
                     continue
 
@@ -95,9 +103,9 @@ def return_all_verses(retries=6):
             return versee
         except Exception as e:
             if j == retries - 1:
-                raise e(f'Maximum number of retries exceeded')
+                raise e(st.markdown('Maximum number of retries exceeded'))
             else:
-                print("Failed to generate, trying again.")
+                st.markdown("Failed to generate, trying again.")
                 time.sleep(2 ** j)
                 continue
         
