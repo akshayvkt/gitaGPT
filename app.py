@@ -32,6 +32,9 @@ st.write("""
 """)
 
 st.write('''If you could ask Bhagavad Gita a question, what would it be?''')
+st.markdown('\n')
+st.markdown('\n')
+st.markdown(':red[Due to API related issues, the app is failing the first time Enter is clicked. Please click Enter twice after you type your question]')
 def get_embedding(text, model="text-embedding-ada-002"):
    text = text.replace("\n", " ")
    return openai.Embedding.create(input = [text], model=model)['data'][0]['embedding']
@@ -82,7 +85,7 @@ def print_verse(q,retries=6):
                 return k    
             except Exception as e:
                 if j == retries - 1:
-                    raise e(f'Maximum number of retries exceeded')
+                    raise e(st.markdown('Maximum number of retries exceeded'))
                 else:
                     st.markdown("Failed to generate, trying again.")
                     time.sleep(2 ** j)
