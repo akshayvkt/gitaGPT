@@ -80,9 +80,9 @@ def print_verse(q,retries=6):
                 return k    
             except Exception as e:
                 if j == retries - 1:
-                    print("Failed to generate, trying again.")
-                    raise e
+                    raise e(f'Maximum number of retries exceeded')
                 else:
+                    print("Failed to generate, trying again.")
                     time.sleep(2 ** j)
                     continue
 
@@ -94,10 +94,10 @@ def return_all_verses(retries=6):
                 versee.append(f"{df_index['index'][i]} \n")
             return versee
         except Exception as e:
-            print("Failed to generate, trying again.")
             if j == retries - 1:
-                raise e
+                raise e(f'Maximum number of retries exceeded')
             else:
+                print("Failed to generate, trying again.")
                 time.sleep(2 ** j)
                 continue
         
