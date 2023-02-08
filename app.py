@@ -110,7 +110,8 @@ def return_all_verses(retries=6):
         
 
 question=st.text_input("**How are you feeling? Ask a question or describe your situation below, and then press Enter.**",'',placeholder='Type your question here')
-if st.button('Enter'):
+# if st.button('Enter'):
+if question != '':
     st.write('Bhagvad Gita says: ') 
     verse_numbers = print_verse(question)
     verses = return_all_verses()
