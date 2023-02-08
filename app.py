@@ -73,32 +73,32 @@ header = """You are Krishna from Mahabharata, and you're here to selflessly help
 def print_verse(q,retries=6):
     k=[]
     embed = get_embedding(q)
-    for i in range(retries):
+    for j in range(retries):
             try:
                 for i in range(5):
                     k.append(int(st.session_state_index.query(embed, top_k=5)['matches'][i]['id']))
                 return k    
             except Exception as e:
-                if i == retries - 1:
+                if j == retries - 1:
                     print("Failed to generate, trying again.")
                     raise e
                 else:
-                    time.sleep(2 ** i)
+                    time.sleep(2 ** j)
                     continue
 
 def return_all_verses(retries=6):
     versee = []
-    for i in range(retries):
+    for j in range(retries):
         try:
             for i in verse_numbers:
                 versee.append(f"{df_index['index'][i]} \n")
             return versee
         except Exception as e:
             print("Failed to generate, trying again.")
-            if i == retries - 1:
+            if j == retries - 1:
                 raise e
             else:
-                time.sleep(2 ** i)
+                time.sleep(2 ** j)
                 continue
         
 
