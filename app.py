@@ -5,12 +5,6 @@ import pinecone
 import os
 import streamlit as st
 import time
-from tenacity import (
-    retry,
-    stop_after_attempt,
-    wait_random_exponential,
-)  # for exponential backoff
-
 
 pinecone_api_key = st.secrets["pinecone_api_key"]
 pinecone.init(
