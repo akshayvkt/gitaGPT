@@ -47,20 +47,7 @@ def vector_similarity(x, y):
     return np.dot(np.array(x), np.array(y))
 
 def card(context):
-    return st.markdown(
-    # <div class="container-fluid">
-    #     <div class="row align-items-start">
-    #          <div  class="col-md-12 col-sm-12">
-    #              <span style="color: #808080;">
-                     # <small>
-    context
-        # </small>
-     #             </span>
-     #         </div>
-     #    </div>
-     # </div>
-     #    , unsafe_allow_html=True)
-    )
+    return st.markdown(context)
 
 COMPLETIONS_API_PARAMS = {
     # We use temperature of 0.0 because it gives the most predictable, factual answer.
@@ -105,9 +92,7 @@ def return_all_verses(retries=6):
                 st.markdown("Failed to generate, trying again.")
                 time.sleep(2 ** j)
                 continue
-        
-
-        
+               
 
 question=st.text_input("**How are you feeling? Ask a question or describe your situation below, and then press Enter.**",'',placeholder='Type your question here')
 # if st.button('Enter'):
@@ -129,7 +114,7 @@ if question != '':
     st.markdown(verse_strings.replace('\n','\n\n'))
 
 
-st.write('''Here's some examples of what you can ask:
+st.write('''\n\nHere's some examples of what you can ask:
 1. I've worked very hard but I'm still not able to achieve the results I hoped for, what do I do?
 2. I made a million dollars manipulating the stock market and I'm feeling great.
 3. How can I attain a peace of mind?
