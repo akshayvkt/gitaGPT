@@ -2,7 +2,6 @@ import pandas as pd
 import numpy as np
 import openai
 import pinecone
-import os
 import streamlit as st
 import time
 
@@ -34,7 +33,6 @@ st.write("""
 st.write('''If you could ask Bhagavad Gita a question, what would it be?''')
 st.markdown('\n')
 st.markdown('\n')
-# st.markdown(':red[Due to API related issues, the app is failing the first time Enter is clicked. Please click Enter twice after you type your question]')
 def get_embedding(text, model="text-embedding-ada-002"):
    text = text.replace("\n", " ")
    return openai.Embedding.create(input = [text], model=model)['data'][0]['embedding']
@@ -50,7 +48,6 @@ def card(context):
     return st.markdown(context)
 
 COMPLETIONS_API_PARAMS = {
-    # We use temperature of 0.0 because it gives the most predictable, factual answer.
     "temperature": 0.0,
     "max_tokens": 300,
     "model": 'text-davinci-003',
@@ -114,7 +111,7 @@ if question != '':
     st.markdown(verse_strings.replace('\n','\n\n'))
 
 
-st.write('''\n\nHere's some examples of what you can ask:
+st.write('''\n\n Here's some examples of what you can ask:
 1. I've worked very hard but I'm still not able to achieve the results I hoped for, what do I do?
 2. I made a million dollars manipulating the stock market and I'm feeling great.
 3. How can I attain a peace of mind?
