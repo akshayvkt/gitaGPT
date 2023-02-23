@@ -4,9 +4,9 @@ import openai
 import pinecone
 import streamlit as st
 import time
-from langchain.llms import OpenAI
-from langchain.callbacks.base import CallbackManager
-from langchain.callbacks.streaming_stdout import StreamingStdOutCallbackHandler
+# from langchain.llms import OpenAI
+# from langchain.callbacks.base import CallbackManager
+# from langchain.callbacks.streaming_stdout import StreamingStdOutCallbackHandler
 
 
 
@@ -107,15 +107,15 @@ if question != '':
     verse_strings = "".join(return_all_verses())
     prompt = f'''{header}\nQuestion:{question}\nVerses:\n{verse_strings}\nAnswer:\n'''
 
-    # response = openai.Completion.create(
-    #     prompt = prompt,
-    #     **COMPLETIONS_API_PARAMS
-    # )
-    llm = OpenAI(streaming=True, callback_manager=CallbackManager([StreamingStdOutCallbackHandler()]), verbose=True, temperature=0)
-    resp = llm(prompt)
+    response = openai.Completion.create(
+        prompt = prompt,
+        **COMPLETIONS_API_PARAMS
+    )
+    # llm = OpenAI(streaming=True, callback_manager=CallbackManager([StreamingStdOutCallbackHandler()]), verbose=True, temperature=0)
+    # resp = llm(prompt)
     # st.markdown(resp)
-    output.markdown(resp)
-    # st.markdown(response["choices"][0]["text"].strip(" \n"))
+    # output.markdown(resp)
+    st.markdown(response["choices"][0]["text"].strip(" \n"))
     st.markdown('\n\n')
     st.markdown("Relevant verses:")
     st.markdown(verse_strings.replace('\n','\n\n'))
