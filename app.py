@@ -4,7 +4,7 @@ import openai
 import pinecone
 import streamlit as st
 import time
-!pip install langchain
+pip install langchain
 from langchain.llms import OpenAI
 from langchain.callbacks.base import CallbackManager
 from langchain.callbacks.streaming_stdout import StreamingStdOutCallbackHandler
