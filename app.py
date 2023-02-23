@@ -4,7 +4,7 @@ import openai
 import pinecone
 import streamlit as st
 import time
-!pip install langchain
+# pip install langchain
 from langchain.llms import OpenAI
 from langchain.callbacks.base import CallbackManager
 from langchain.callbacks.streaming_stdout import StreamingStdOutCallbackHandler
@@ -29,6 +29,7 @@ if index_name not in pinecone.list_indexes():
 st.session_state_index = pinecone.Index(index_name)
 
 openai.api_key=st.secrets['openai_api_key']
+
 
 df_index=pd.read_csv('only_verses.csv')
 
@@ -100,6 +101,7 @@ def return_all_verses(retries=6):
 question=st.text_input("**How are you feeling? Ask a question or describe your situation below, and then press Enter.**",'',placeholder='Type your question here')
 # if st.button('Enter'):
 if question != '':
+    output = st.empty()
     st.write('Bhagvad Gita says: ') 
     verse_numbers = print_verse(question)
     verses = return_all_verses()
@@ -112,7 +114,8 @@ if question != '':
     # )
     llm = OpenAI(streaming=True, callback_manager=CallbackManager([StreamingStdOutCallbackHandler()]), verbose=True, temperature=0)
     resp = llm(prompt)
-    st.markdown(resp)
+    # st.markdown(resp)
+    output.markdown(resp)
     # st.markdown(response["choices"][0]["text"].strip(" \n"))
     st.markdown('\n\n')
     st.markdown("Relevant verses:")
