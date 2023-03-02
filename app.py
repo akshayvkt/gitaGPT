@@ -36,6 +36,8 @@ st.write("""
 # GitaGPT
 """)
 
+st.markdown('**:red[The vector database is currently down due to an issue related to the hosting company,Pinecone. Please come back later to try the app.]**')
+
 st.write('''If you could ask Bhagavad Gita a question, what would it be?''')
 st.markdown('\n')
 st.markdown('\n')
