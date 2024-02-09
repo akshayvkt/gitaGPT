@@ -115,10 +115,12 @@ if question != '':
     verse_numbers = print_verse(question)
     verses = return_all_verses()
     verse_strings = "".join(return_all_verses())
-    prompt = f'''{header}\nQuestion:{question}\nVerses:\n{verse_strings}\nAnswer:\n'''
+    # prompt = f'''Question:{question}\nVerses:\n{verse_strings}\nAnswer:\n'''
 
-    ai_message = {'role':'assistant','content':header}
+    system_message = {'role':'assistant','content':header}
     user_message = {'role': 'user', 'content': question}
+    ai_question = {'role':'assistant','content':f"Here are the relevant verses:\n{verse_strings}"}
+
 
 
     response = client.chat.completions.create(
