@@ -81,7 +81,7 @@ def print_verse(q,retries=6):
     for j in range(retries):
             try:
                 for i in range(5):
-                    k.append(int(st.session_state_index.query(vector=embed, top_k=5)['matches'][i]['id']))
+                    k.append(int(st.session_state_index.query(vector=embed, top_k=5,namespace='')['matches'][i]['id']))
                 return k    
             except Exception as e:
                 if j == retries - 1:
