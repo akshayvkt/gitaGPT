@@ -68,8 +68,7 @@ def card(context):
 
 
 CHAT_COMPLETIONS_API_PARAMS = {
-    "temperature": 0.0,
-    "model": 'gpt-3.5-turbo-0125',
+    "model": 'gpt-3.5-turbo-0125'
 }
 
 header = """You are Krishna from Mahabharata, and you're here to selflessly help and answer any question or dilemma of anyone who comes to you.
@@ -82,7 +81,7 @@ def print_verse(q,retries=6):
     for j in range(retries):
             try:
                 for i in range(5):
-                    k.append(int(st.session_state_index.query(embed, top_k=5)['matches'][i]['id']))
+                    k.append(int(st.session_state_index.query(vector=embed, top_k=5)['matches'][i]['id']))
                 return k    
             except Exception as e:
                 if j == retries - 1:
