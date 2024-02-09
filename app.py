@@ -30,9 +30,9 @@ index_name = 'bhagvad-gita-recovered'
 #     )
 st.session_state_index = pc.Index(index_name)
 
-openai.api_key=st.secrets['openai_api_key']
+api_key=st.secrets['openai_api_key']
 
-client = OpenAI()
+client = OpenAI(api_key=api_key)
 
 df_index=pd.read_csv('only_verses.csv')
 
