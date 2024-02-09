@@ -47,7 +47,8 @@ st.markdown('\n')
 st.markdown('\n')
 def get_embedding(text, model="text-embedding-3-small"):
    text = text.replace("\n", " ")
-   return client.embeddings.create(input = [text], model=model)['data'][0]['embedding']
+   embedded_result = client.embeddings.create(input = text, model=model)
+   return embedded_result['data'][0]['embedding']
 
 def vector_similarity(x, y):
     """
