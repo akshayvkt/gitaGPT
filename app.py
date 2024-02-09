@@ -47,8 +47,8 @@ st.markdown('\n')
 st.markdown('\n')
 def get_embedding(text, model="text-embedding-3-small"):
    text = text.replace("\n", " ")
-   embedded_result = client.embeddings.create(input = text, model=model)
-   return embedded_result['data'][0]['embedding']
+   embedded_result = client.embeddings.create(input = [text], model=model)
+   return embedded_result.data[0].embedding
 
 def vector_similarity(x, y):
     """
@@ -126,7 +126,7 @@ if question != '':
         messages = [ai_message,user_message],
         **CHAT_COMPLETIONS_API_PARAMS
     )
-    st.markdown(response["choices"][0]["content"].strip(" \n"))
+    st.markdown(response.choices[0].content.strip(" \n"))
     st.markdown('\n\n')
     st.markdown("Relevant verses:")
     st.markdown(verse_strings.replace('\n','\n\n'))
