@@ -1,6 +1,7 @@
 import pandas as pd
 import numpy as np
 import openai
+from openai import OpenAI
 import pinecone
 import streamlit as st
 import time
@@ -31,6 +32,7 @@ st.session_state_index = pc.Index(index_name)
 
 openai.api_key=st.secrets['openai_api_key']
 
+client = OpenAI()
 
 df_index=pd.read_csv('only_verses.csv')
 
@@ -118,16 +120,11 @@ if question != '':
     ai_message = {'role':'assistant','content':header}
     user_message = {'role': 'user', 'content': question}
 
-    response = openai.chat.completions.create()
 
-    # response = openai.Completion.create(
-    #     messages = [ai_message,user_message],
-    #     **CHAT_COMPLETIONS_API_PARAMS
-    # )
-    # llm = OpenAI(streaming=True, callback_manager=CallbackManager([StreamingStdOutCallbackHandler()]), verbose=True, temperature=0)
-    # resp = llm(prompt)
-    # st.markdown(resp)
-    # output.markdown(resp)
+    response = client.chat.completion.create(
+        messages = [ai_message,user_message],
+        **CHAT_COMPLETIONS_API_PARAMS
+    )
     st.markdown(response["choices"][0]["content"].strip(" \n"))
     st.markdown('\n\n')
     st.markdown("Relevant verses:")
