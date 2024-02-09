@@ -19,14 +19,14 @@ pc = Pinecone(
 index_name = 'bhagvad-gita-recovered'
 
 # check if index already exists (it shouldn't if this is first time)
-if index_name not in pc.list_indexes():
-    # if does not exist, create index
-    pc.create_index(
-        name=index_name,
-        dimension=1536,
-        metric='cosine',
-        spec=PodSpec(environment="us-east1-gcp", pod_type="p1")
-    )
+# if index_name not in pc.list_indexes():
+#     # if does not exist, create index
+#     pc.create_index(
+#         name=index_name,
+#         dimension=1536,
+#         metric='cosine',
+#         spec=PodSpec(environment="us-east1-gcp", pod_type="p1")
+#     )
 st.session_state_index = pc.Index(index_name)
 
 openai.api_key=st.secrets['openai_api_key']
