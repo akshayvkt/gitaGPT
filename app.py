@@ -4,7 +4,7 @@ import openai
 import pinecone
 import streamlit as st
 import time
-from pinecone import Pinecone
+from pinecone import Pinecone,PodSpec
 # from langchain.llms import OpenAI
 # from langchain.callbacks.base import CallbackManager
 # from langchain.callbacks.streaming_stdout import StreamingStdOutCallbackHandler
@@ -14,8 +14,7 @@ from pinecone import Pinecone
 pinecone_api_key = st.secrets["pinecone_api_key"]
 
 pc = Pinecone(
-    api_key=pinecone_api_key, 
-              environment='us-east1-gcp')
+    api_key=pinecone_api_key)
 
 index_name = 'bhagvad-gita-recovered'
 
@@ -23,9 +22,10 @@ index_name = 'bhagvad-gita-recovered'
 if index_name not in pc.list_indexes():
     # if does not exist, create index
     pc.create_index(
-        index_name,
+        name=index_name,
         dimension=1536,
-        metric='cosine'
+        metric='cosine',
+        spec=PodSpec(environment="us-east1-gcp", pod_type="p1")
     )
 st.session_state_index = pc.Index(index_name)
 
