@@ -45,9 +45,9 @@ st.write("""
 st.write('''If you could ask Bhagavad Gita a question, what would it be?''')
 st.markdown('\n')
 st.markdown('\n')
-def get_embedding(text, model="text-embedding-ada-002"):
+def get_embedding(text, model="text-embedding-3-small"):
    text = text.replace("\n", " ")
-   return openai.Embedding.create(input = [text], model=model)['data'][0]['embedding']
+   return client.embeddings.create(input = [text], model=model)['data'][0]['embedding']
 
 def vector_similarity(x, y):
     """
