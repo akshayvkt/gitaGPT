@@ -125,7 +125,7 @@ if question != '':
         messages = [ai_message,user_message],
         **CHAT_COMPLETIONS_API_PARAMS
     )
-    st.markdown(response.choices[0].content.strip(" \n"))
+    st.markdown(response.choices[0].message.content.strip(" \n"))
     st.markdown('\n\n')
     st.markdown("Relevant verses:")
     st.markdown(verse_strings.replace('\n','\n\n'))
