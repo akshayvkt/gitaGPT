@@ -122,7 +122,7 @@ if question != '':
     user_message = {'role': 'user', 'content': question}
 
 
-    response = client.chat.completion.create(
+    response = client.chat.completions.create(
         messages = [ai_message,user_message],
         **CHAT_COMPLETIONS_API_PARAMS
     )
