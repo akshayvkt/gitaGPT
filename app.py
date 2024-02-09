@@ -57,17 +57,21 @@ def vector_similarity(x, y):
 def card(context):
     return st.markdown(context)
 
-COMPLETIONS_API_PARAMS = {
+# COMPLETIONS_API_PARAMS = {
+#     "temperature": 0.0,
+#     "max_tokens": 300,
+#     "model": 'davinci-002',
+# }
+
+
+CHAT_COMPLETIONS_API_PARAMS = {
     "temperature": 0.0,
-    "max_tokens": 300,
-    "model": 'davinci-002',
+    "model": 'gpt-3.5-turbo-0125',
 }
 
 header = """You are Krishna from Mahabharata, and you're here to selflessly help and answer any question or dilemma of anyone who comes to you.
     Analyze the person's question below and identify the base emotion and the root for this emotion, and then frame your answer by summarizing how your verses below
     apply to their situation and be emphatetic in your answer."""
-
-
 
 def print_verse(q,retries=6):
     k=[]
@@ -111,15 +115,20 @@ if question != '':
     verse_strings = "".join(return_all_verses())
     prompt = f'''{header}\nQuestion:{question}\nVerses:\n{verse_strings}\nAnswer:\n'''
 
-    response = openai.Completion.create(
-        prompt = prompt,
-        **COMPLETIONS_API_PARAMS
-    )
+    ai_message = {'role':'assistant','content':header}
+    user_message = {'role': 'user', 'content': question}
+
+    response = openai.chat.completions.create()
+
+    # response = openai.Completion.create(
+    #     messages = [ai_message,user_message],
+    #     **CHAT_COMPLETIONS_API_PARAMS
+    # )
     # llm = OpenAI(streaming=True, callback_manager=CallbackManager([StreamingStdOutCallbackHandler()]), verbose=True, temperature=0)
     # resp = llm(prompt)
     # st.markdown(resp)
     # output.markdown(resp)
-    st.markdown(response["choices"][0]["text"].strip(" \n"))
+    st.markdown(response["choices"][0]["content"].strip(" \n"))
     st.markdown('\n\n')
     st.markdown("Relevant verses:")
     st.markdown(verse_strings.replace('\n','\n\n'))
